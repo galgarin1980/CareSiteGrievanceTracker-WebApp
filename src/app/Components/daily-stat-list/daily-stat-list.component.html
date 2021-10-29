@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+
+    <div class="d-flex justify-content-between mb-1">
+        <div class="user-card">
+            <app-user-card [user]="user"></app-user-card>
+
+        </div>
+        <div class="d-flex gap-1  align-items-end">
+            
+            <button type="button" class="btn btn-sm btn-primary" (click)="openAdd()" data-bs-toggle="tooltip" title="Add New"><i class="bi bi-plus-circle"></i>
+                Add New
+            </button>
+
+        </div>
+    </div>
+       
+    
+    <div class="flex-row table-wrapper-scroll-y my-custom-scrollbar"> 
+       
+        <table id="statTable" class="table table-striped table-bordered border-primary table-sm">   
+            <thead class="table-light">
+                <tr>
+                    <th mat-sort-header="date">Date/Time Complaint Received</th>
+                    <th>Staff Name</th>
+                    <th>Patient Name</th>
+                    <th>Patient DOB</th>
+                    <th>HIPPA Submitted?</th>
+                    <th>Midas Submitted?</th>
+                    <th>Prescription Number</th>
+                    <th>First Time Customer?</th>
+                    
+                    <th>Patient Issue</th>
+                    <th>Resolution</th>
+                    <th>Resolution Date/Time</th>
+                    
+                    <th>Was Patient Satisfied?</th>
+                    <th>Patient Further Review</th>
+                    <th>Was Call Escalated?</th>
+                    <th>If Yes To Whom?</th>
+                    <th>If Yes, Date/Time of Escalation?</th>
+                    <th>Escalated Call Resolution Date/Time</th>
+                    
+                    <th>Escalated Call Recepient</th>
+                    <th>Overall Resolution Complete?</th>
+                    <th>Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="myList" *ngFor="let item of list; let i = index">
+                    <td>{{item.DateComplaintReceived | date:'short' }}</td>
+                    <td>{{item.StaffName}}</td>
+                    <td>{{item.PatientName}}</td>
+                    <td>{{item.PatientDOB | date: 'shortDate' }}</td>
+                    <td>{{item.HIPPASubmitted}}</td>
+                    <td>{{item.MidasSubmitted}}</td>
+                    <td>{{item.PrescriptionNumber}}</td>
+                    <td>{{item.FirstTimeCustomer}}</td>
+                    
+                    <td>{{item.PatientIssue}}</td>
+                    <td>{{item.Resolution}}</td>
+                    <td>{{item.ResolutionDate | date: 'shortDate' }}</td>
+                    
+                    <td>{{item.WasPatientSatisfied}}</td>
+                    <td>{{item.PatientFurtherReview}}</td>
+                    <td>{{item.WasCallEscalated}}</td>
+                    <td>{{item.IfYesToWhom}}</td>
+                    <td>{{item.IfYesDateTimeEscalation}}</td>
+                    <td>{{item.EscalatedCallResolutionDate | date: 'shortDate' }}</td>
+                    
+                    <td>{{item.EscalatedCallRecepient}}</td>
+                    <td>{{item.OverallResolutionComplete}}</td>
+                                        
+                    <td>
+                        <div class="d-flex flex-row justify-content-evenly">
+                            
+                            <a (click)="openEdit(item)" data-bs-toggle="tooltip" title="Edit"><i
+                                    class="bi bi-pencil-square"></i></a>
+
+                            <a (click)="openDelete(item)" data-bs-toggle="tooltip" title="Delete"><i
+                                    class="bi bi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            
+            
+        </table>
+        
+    </div>
+
+    <!-- Modal -->
+    <div #popupModal class="modal fade" id="popupWindow" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" (hidden.bs.modal)=onClose($event)>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header p-3">
+                    <h6 class="modal-title" id="staticBackdropLabel">{{formHandler.formType|async}} Grievance</h6>
+                    <button #closebutton type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="(formHandler.formType|async) != 'Delete' else deleteing">
+                        <app-add-grievance (formSubmit)="onFormSubmit($event)"></app-add-grievance> <!-- This is where the add daily  pop up is called -->
+
+                    </div>
+                    <ng-template #deleteing>
+                        <app-delete-daily-stat (deleteSubmit)="onDeleteSubmit($event)"></app-delete-daily-stat>
+                    </ng-template>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    

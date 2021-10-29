@@ -1,0 +1,171 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
+        <!-- Start -->
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Date/Time Complaint Received</label>
+            <div class="col-sm-9">
+                <input type="datetime-local" class="form-control form-control-sm" formControlName="DateComplaintReceived">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Staff Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" formControlName="StaffName">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Patient Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control form-control-sm" formControlName="PatientName">
+            </div>
+        </div>
+        
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Patient DOB</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control form-control-sm" formControlName="PatientDOB">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">HIPPA Submitted?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerHIPPASubmitted($event)" formControlName="HIPPASubmitted">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let r of hippaSubmittedQuestion" [ngValue]="r">{{r}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Midas Submitted?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerMidasSubmitted($event)" formControlName="MidasSubmitted">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of midasSubmittedQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">PrescriptionNumber</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control form-control-sm" formControlName="PrescriptionNumber">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">First Time Customer?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerFirstTimeCustomer($event)" formControlName="FirstTimeCustomer">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of firstTimeCustomerQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>       
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Patient Issue</label>
+            <div class="col-sm-9">
+                <textarea class="form-control form-control-sm" style="height: 100px"
+                    formControlName="PatientIssue"></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Resolution</label>
+            <div class="col-sm-9">
+                <textarea class="form-control form-control-sm" style="height: 100px"
+                    formControlName="Resolution"></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Resolution Date/Time</label>
+            <div class="col-sm-9">
+                <input type="datetime-local" class="form-control form-control-sm" formControlName="ResolutionDate">
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Was Patient Satisfied?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerWasPatientSatisfied($event)" formControlName="WasPatientSatisfied">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of wasPatientSatisfiedQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Patient Further Review?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerPatientFurtherReview($event)" formControlName="PatientFurtherReview">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of patientFurtherReviewQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Was Call Escalated?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerWasCallEscalated($event)" formControlName="WasCallEscalated">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of wasCallEscalatedQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <div class="row mb-2">
+                <label class="col-sm-3 col-form-label col-form-label-sm">If Yes To Whom?</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" formControlName="IfYesToWhom">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label class="col-sm-3 col-form-label col-form-label-sm">If Yes Date/Time of Escalation?</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" formControlName="IfYesDateTimeEscalation">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Escalated Call Resolution Date?</label>
+                <div class="col-sm-9">
+                    <input type="datetime-local" class="form-control form-control-sm" formControlName="EscalatedCallResolutionDate">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label class="col-sm-3 col-form-label col-form-label-sm">Escalated Call Recepient?</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-sm" formControlName="EscalatedCallRecepient">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Overall Resolution Complete?</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerOverallResolutionComplete($event)" formControlName="OverallResolutionComplete">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of overallResolutionCompleteQuestion" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+    
+        <!-- End -->
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!form.valid">Submit
+                ({{formHandler.formType|async}})</button>
+        </div>
+    </form>
+   
+</div>
