@@ -21,6 +21,8 @@ export class AddGrievanceComponent implements OnInit {
   patientFurtherReviewQuestion: string[] = ["Yes", "No"];
   wasCallEscalatedQuestion: string[] = ["Yes", "No"];
   overallResolutionCompleteQuestion: string[] = ["Yes", "No"];
+  status: string[] = ["Open", "Resolved"];
+  something: boolean = false;
   
   attachedObject: any;
 
@@ -37,21 +39,23 @@ export class AddGrievanceComponent implements OnInit {
       FirstTimeCustomer: new FormControl(),
       DateComplaintReceived: new FormControl(),
       PatientIssue: new FormControl(),
+      Status: new FormControl(),
       Resolution: new FormControl(),
-      ResolutionDate: new FormControl(),
-      WasPatientSatisfied: new FormControl(),
-      PatientFurtherReview: new FormControl(),
-      WasCallEscalated: new FormControl(),
-      IfYesToWhom: new FormControl(),
-      IfYesDateTimeEscalation: new FormControl(),
-      EscalatedCallResolutionDate: new FormControl(),
-      EscalatedCallRecepient: new FormControl(),
-      OverallResolutionComplete: new FormControl(),
+      // ResolutionDate: new FormControl(),
+      // WasPatientSatisfied: new FormControl(),
+      // PatientFurtherReview: new FormControl(),
+      // WasCallEscalated: new FormControl(),
+      // IfYesToWhom: new FormControl(),
+      // IfYesDateTimeEscalation: new FormControl(),
+      // EscalatedCallResolutionDate: new FormControl(),
+      // EscalatedCallRecepient: new FormControl(),
+      // OverallResolutionComplete: new FormControl(),
             
     });
    }
 
   ngOnInit(): void {
+    
     this.attachedObject = {};
     this.formHandler.formObject.subscribe(obj => {
       console.log("WHATS THIS DUMPING?", obj);
@@ -67,17 +71,17 @@ export class AddGrievanceComponent implements OnInit {
         }
 
 
-        if (obj.ResolutionDate) {
-          let resolutionDate = new Date((new Date(obj.ResolutionDate)).getTime());
-          this.form.controls['ResolutionDate'].setValue(formatDate(resolutionDate, 'yyyy-MM-ddThh:mm:ss', 'en-US'));
-          console.log("EDIT - ResolutionDate", obj)
-        }
+        // if (obj.ResolutionDate) {
+        //   let resolutionDate = new Date((new Date(obj.ResolutionDate)).getTime());
+        //   this.form.controls['ResolutionDate'].setValue(formatDate(resolutionDate, 'yyyy-MM-ddThh:mm:ss', 'en-US'));
+        //   console.log("EDIT - ResolutionDate", obj)
+        // }
         
-        if (obj.EscalatedCallResolutionDate) {
-          let escalatedCallResolutionDate = new Date((new Date(obj.EscalatedCallResolutionDate)).getTime());
-          this.form.controls['EscalatedCallResolutionDate'].setValue(formatDate(escalatedCallResolutionDate, 'yyyy-MM-ddThh:mm:ss', 'en-US'));
-          console.log("EDIT - EscalatedCallResolutionDate", obj)
-        }
+        // if (obj.EscalatedCallResolutionDate) {
+        //   let escalatedCallResolutionDate = new Date((new Date(obj.EscalatedCallResolutionDate)).getTime());
+        //   this.form.controls['EscalatedCallResolutionDate'].setValue(formatDate(escalatedCallResolutionDate, 'yyyy-MM-ddThh:mm:ss', 'en-US'));
+        //   console.log("EDIT - EscalatedCallResolutionDate", obj)
+        // }
 
         if (obj.DateComplaintReceived) {
           let dateComplaintReceived = new Date((new Date(obj.DateComplaintReceived)).getTime()); 
@@ -108,14 +112,15 @@ export class AddGrievanceComponent implements OnInit {
         this.form.controls['PrescriptionNumber'].setValue(obj.PrescriptionNumber);
         this.form.controls['FirstTimeCustomer'].setValue(obj.FirstTimeCustomer);
         this.form.controls['PatientIssue'].setValue(obj.PatientIssue);
+        this.form.controls['Status'].setValue(obj.Status);
         this.form.controls['Resolution'].setValue(obj.Resolution);
-        this.form.controls['WasPatientSatisfied'].setValue(obj.WasPatientSatisfied);
-        this.form.controls['PatientFurtherReview'].setValue(obj.PatientFurtherReview);
-        this.form.controls['WasCallEscalated'].setValue(obj.WasCallEscalated);
-        this.form.controls['IfYesToWhom'].setValue(obj.IfYesToWhom);
-        this.form.controls['IfYesDateTimeEscalation'].setValue(obj.IfYesDateTimeEscalation);
-        this.form.controls['EscalatedCallRecepient'].setValue(obj.EscalatedCallRecepient);
-        this.form.controls['OverallResolutionComplete'].setValue(obj.OverallResolutionComplete);
+        // this.form.controls['WasPatientSatisfied'].setValue(obj.WasPatientSatisfied);
+        // this.form.controls['PatientFurtherReview'].setValue(obj.PatientFurtherReview);
+        // this.form.controls['WasCallEscalated'].setValue(obj.WasCallEscalated);
+        // this.form.controls['IfYesToWhom'].setValue(obj.IfYesToWhom);
+        // this.form.controls['IfYesDateTimeEscalation'].setValue(obj.IfYesDateTimeEscalation);
+        // this.form.controls['EscalatedCallRecepient'].setValue(obj.EscalatedCallRecepient);
+        // this.form.controls['OverallResolutionComplete'].setValue(obj.OverallResolutionComplete);
         
         this.form.updateValueAndValidity();
       }
@@ -132,6 +137,10 @@ export class AddGrievanceComponent implements OnInit {
 
   answerFirstTimeCustomer(firstTimeCustomerQuestion: any){
     console.log("is this a first time customer?", firstTimeCustomerQuestion)
+  }
+
+  answerStatus(statusQuestion: any){
+    console.log("status?", statusQuestion)
   }
 
   answerWasPatientSatisfied(wasPatientSatisfiedQuestion: any){
@@ -174,16 +183,17 @@ export class AddGrievanceComponent implements OnInit {
     obj.PrescriptionNumber = this.form.controls['PrescriptionNumber'].value;
     obj.FirstTimeCustomer = this.form.controls['FirstTimeCustomer'].value;
     obj.PatientIssue = this.form.controls['PatientIssue'].value;
+    obj.Status = this.form.controls['Status'].value;
     obj.Resolution = this.form.controls['Resolution'].value;
-    obj.ResolutionDate = this.form.controls['ResolutionDate'].value;
-    obj.WasPatientSatisfied = this.form.controls['WasPatientSatisfied'].value;
-    obj.PatientFurtherReview = this.form.controls['PatientFurtherReview'].value;
-    obj.WasCallEscalated = this.form.controls['WasCallEscalated'].value;
-    obj.IfYesToWhom = this.form.controls['IfYesToWhom'].value;
-    obj.IfYesDateTimeEscalation = this.form.controls['IfYesDateTimeEscalation'].value;
-    obj.EscalatedCallResolutionDate = this.form.controls['EscalatedCallResolutionDate'].value;
-    obj.EscalatedCallRecepient = this.form.controls['EscalatedCallRecepient'].value;
-    obj.OverallResolutionComplete = this.form.controls['OverallResolutionComplete'].value;
+    // obj.ResolutionDate = this.form.controls['ResolutionDate'].value;
+    // obj.WasPatientSatisfied = this.form.controls['WasPatientSatisfied'].value;
+    // obj.PatientFurtherReview = this.form.controls['PatientFurtherReview'].value;
+    // obj.WasCallEscalated = this.form.controls['WasCallEscalated'].value;
+    // obj.IfYesToWhom = this.form.controls['IfYesToWhom'].value;
+    // obj.IfYesDateTimeEscalation = this.form.controls['IfYesDateTimeEscalation'].value;
+    // obj.EscalatedCallResolutionDate = this.form.controls['EscalatedCallResolutionDate'].value;
+    // obj.EscalatedCallRecepient = this.form.controls['EscalatedCallRecepient'].value;
+    // obj.OverallResolutionComplete = this.form.controls['OverallResolutionComplete'].value;
     
     // The user is needed on the add new form but not part of the user input
     if (!obj.Username) {
@@ -195,5 +205,18 @@ export class AddGrievanceComponent implements OnInit {
     this.formSubmit.emit(obj);
   }
 
+  isResolved(): boolean {
+    
+    let stat: DailyStat = new DailyStat();
+    
+    if (stat.Status == "Resolved"){
+      
+        return true;
+      
+    }
+    
+      return false;
+    
+  }
 
 }

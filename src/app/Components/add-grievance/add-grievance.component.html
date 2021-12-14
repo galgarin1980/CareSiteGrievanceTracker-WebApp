@@ -75,13 +75,23 @@
         </div>
 
         <div class="row mb-2">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Status</label>
+            <div class="col-sm-9">
+                <select class="form-select form-select-sm" (change)="answerStatus($event)" formControlName="Status">
+                    <option value="" disabled>Choose an Answer</option>
+                    <option *ngFor="let m of status" [ngValue]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>    
+
+        <div *ngIf="isResolved()" class="row mb-2">
             <label class="col-sm-3 col-form-label col-form-label-sm">Resolution</label>
             <div class="col-sm-9">
                 <textarea class="form-control form-control-sm" style="height: 100px"
                     formControlName="Resolution"></textarea>
             </div>
         </div>
-
+<!-- 
         <div class="row mb-2">
             <label class="col-sm-3 col-form-label col-form-label-sm">Resolution Date/Time</label>
             <div class="col-sm-9">
@@ -157,7 +167,7 @@
                     <option *ngFor="let m of overallResolutionCompleteQuestion" [ngValue]="m">{{m}}</option>
                 </select>
             </div>
-        </div>
+        </div> -->
     
         <!-- End -->
 
@@ -166,6 +176,7 @@
             <button type="submit" class="btn btn-sm btn-primary" [disabled]="!form.valid">Submit
                 ({{formHandler.formType|async}})</button>
         </div>
+        
     </form>
    
 </div>

@@ -10,6 +10,7 @@ export class DailyStat {
     MidasSubmitted?: string;
     PrescriptionNumber?: number;
     FirstTimeCustomer?: string;
+    Status?: string;
     DateComplaintReceived?: Date;
     PatientIssue?: string;
     Resolution?: string;
